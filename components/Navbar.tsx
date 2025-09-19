@@ -5,7 +5,6 @@ import React from "react";
 import { BadgePlus, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-
 const Navbar = async () => {
   const session = await auth();
 
@@ -19,23 +18,25 @@ const Navbar = async () => {
         <div className="flex items-center gap-5 text-black">
           {session && session?.user ? (
             <>
-              <Link href="/startup/create">
-                <span className="max-sm:hidden">Create</span>
-                <BadgePlus className="size-6 sm:hidden" />
-              </Link>
+              <div className="flex gap-5 mt-2">
+                <Link href="/startup/create">
+                  <span className="max-sm:hidden">Create</span>
+                  <BadgePlus className="size-6 sm:hidden" />
+                </Link>
 
-              <form
-                action={async () => {
-                  "use server";
+                <form
+                  action={async () => {
+                    "use server";
 
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button type="submit">
-                  <span className="max-sm:hidden">Logout</span>
-                  <LogOut className="size-6 sm:hidden text-red-500" />
-                </button>
-              </form>
+                    await signOut({ redirectTo: "/" });
+                  }}
+                >
+                  <button type="submit">
+                    <span className="max-sm:hidden">Logout</span>
+                    <LogOut className="size-6 sm:hidden text-red-500" />
+                  </button>
+                </form>
+              </div>
 
               <Link href={`/user/${session?.id}`}>
                 <Avatar className="size-10">

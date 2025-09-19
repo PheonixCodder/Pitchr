@@ -1,5 +1,8 @@
+import { auth } from "@/auth";
 import SearchForm from "@/components/SearchForm";
 import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home({
   searchParams,
@@ -7,36 +10,10 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const posts = [
-    {
-      _id: "1",
-      title: "Startup 1",
-      category: "Category 1",
-      description: "Description 1",
-      image: "https://placehold.co/600x400?text=Startup 1",
-      views: 100,
-      author: {
-        name: "John Doe",
-        image: `https://placehold.co/48x48?text=Jane Doe`,
-        _id: "1",
-      },
-      _createdAt: new Date().toISOString(),
-    },
-    {
-      _id: "2",
-      title: "Startup 2",
-      category: "Category 2",
-      description: "Description 2",
-      image: `https://placehold.co/600x400?text=Startup 2`,
-      views: 200,
-      author: {
-        name: "Jane Doe",
-        image: "https://placehold.co/48x48?text=Jane Doe",
-        _id: "2",
-      },
-      _createdAt: new Date().toISOString(),
-    },
-  ];
+  const params = { search: query || null };
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+
+
   return (
     <>
       <section className="pink_container">
@@ -63,6 +40,7 @@ export default async function Home({
           )}
         </ul>
       </section>
+      <SanityLive />
     </>
   );
 }

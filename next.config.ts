@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
         hostname: "*",
       },
     ],
-    domains: ["placehold.co"],
+  },
+  experimental: {
+    ppr: true,
   },
 };
 

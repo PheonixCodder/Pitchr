@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
-// import "easymde/dist/easymde.min.css";
+import "easymde/dist/easymde.min.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const mnstrFont = localFont({
   src: [
@@ -83,6 +84,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${mnstrFont.variable} ${workSans.variable}`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );
